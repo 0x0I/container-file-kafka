@@ -1,0 +1,14 @@
+# test resource verification spec
+file:
+  /tmp/testing.txt:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "Yay! Testing"
+# service:
+#  example:
+#    enabled: true
+#    running: true

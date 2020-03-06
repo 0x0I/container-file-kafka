@@ -1,0 +1,14 @@
+# Specific OS distribution to utilize as base image
+FROM {{ os_version }}
+
+# Install/build application binaries
+RUN mkdir /entrypoint.d
+COPY entrypoints/default-entrypoint.sh  /entrypoint.d
+
+# set ENTRYPOINT
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+# set (default) CMD
