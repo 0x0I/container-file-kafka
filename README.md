@@ -1,5 +1,5 @@
 <p><img src="https://avatars1.githubusercontent.com/u/12563465?s=200&v=4" alt="OCI logo" title="oci" align="left" height="70" /></p>
-<p><img src="https://www.stickpng.com/assets/images/584809c9cef1014c0b5e4909.png" alt="kafka logo" title="kafka" align="right" height="80" /></p>
+<p><img src="https://pbs.twimg.com/profile_images/781633389577195521/kazUJooF_400x400.jpg" alt="kafka logo" title="kafka" align="right" height="80" /></p>
 
 Container File :signal_strength: :snake: Kafka
 =========
