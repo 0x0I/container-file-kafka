@@ -20,11 +20,14 @@
         mode: 0644
       vars:
         os_version: "{{ item.os_version | default(default_os_version) }}"
+        archive_url: "{{ item.archive_url | default(default_archive_url) }}"
+        system_dependencies: "{{ item.system_dependencies | default([]) }}"
+        package_manager: "{{ item.package_manager | default(default_package_manager) }}"
       with_items: "{{ build_matrix }}"
     - name: Build each OS based image from parent DIR of playbook
       become: true
       when: build_images
       command:
         chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
-        cmd: "docker build --file {{ playbook_dir }}/artifacts/{{ item.name }}/Containerfile --tag staged-template:{{ item.name }} ."
+        cmd: "docker build --file {{ playbook_dir }}/artifacts/{{ item.name }}/Containerfile --tag staged-kafka:{{ item.name }} ."
       with_items: "{{ build_matrix }}"

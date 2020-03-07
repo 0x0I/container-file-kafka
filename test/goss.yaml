@@ -1,14 +1,22 @@
 # test resource verification spec
 file:
-  /tmp/testing.txt:
+  /opt/kafka:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: directory
+file:
+  /opt/kafka/bin/kafka-server-start.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+file:
+  /opt/kafka/config/server.properties:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
-    contains:
-      - "Yay! Testing"
-# service:
-#  example:
-#    enabled: true
-#    running: true

@@ -1,14 +1,27 @@
-# Specific OS distribution to utilize as base image
 FROM {{ os_version }}
 
-# Install/build application binaries
-RUN mkdir /entrypoint.d
-COPY entrypoints/default-entrypoint.sh  /entrypoint.d
+LABEL maintainer="O1.IO"
+{% if system_dependencies|length > 0 %}
 
-# set ENTRYPOINT
+RUN {{ package_manager }} update -y && \
+    {{ package_manager }} install -y {{ system_dependencies|join(' ') }}
+{% endif %}
+
+ENV KAFKA_HOME=/opt/kafka
+
+RUN mkdir -p $KAFKA_HOME && curl -L {{ archive_url }} | tar xzf - --strip-components=1 -C $KAFKA_HOME
+
+ENV PATH $PATH:${KAFKA_HOME}/bin
+
+RUN mkdir /entrypoint.d
+COPY entrypoints/10-setup-config.sh  /entrypoint.d
+
 COPY scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY scripts/start-kafka.sh /usr/bin/start-kafka.sh
+RUN chmod +x /usr/bin/start-kafka.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 
-# set (default) CMD
+CMD ["start-kafka.sh"]
