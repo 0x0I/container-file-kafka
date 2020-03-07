@@ -8,11 +8,12 @@ config_path="${config_dir}/server.properties"
 
 mkdir -p $config_dir
 
-# Add provisioning header
-echo "# Managed by 0xO1.IO" >> $config_path
-
 # Render server properties configuration
 if env | grep CONFIG_; then
+  # Add provisioning header
+  echo "# Managed by 0xO1.IO" > $config_path
+  echo >> $config_path
+
   for VAR in `env | sort -h`
   do
     if [[ "$VAR" =~ ^CONFIG_ ]]; then
@@ -24,6 +25,7 @@ if env | grep CONFIG_; then
         property_value=`echo "CONFIG_${property_key}"`
         echo "$property_key = ${!property_value}" >> $config_path
       fi
+      echo >> $config_path
     fi
   done
 fi

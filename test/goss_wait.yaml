@@ -1,0 +1,12 @@
+process:
+  java:
+    running: true
+    skip: false
+port:
+  tcp:2181:
+    listening: true
+    skip: false
+port:
+  tcp:9092:
+    listening: true
+    skip: false

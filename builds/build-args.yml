@@ -9,13 +9,9 @@ push_images: false
 rhel_dependencies: &rhel_deps
   system_dependencies:
     - java-1.8.0-openjdk
-ubuntu_dependencies: &ubuntu_deps
-  system_dependencies:
-    - openjdk-8-jdk
-    - curl
 debian_dependencies: &debian_deps
   system_dependencies:
-    - default-jdk
+    - openjdk-8-jre
     - curl
 
 # Container template build matrix
@@ -39,13 +35,9 @@ build_matrix:
   - name: ubuntu-18.04
     os_version: ubuntu:18.04
     package_manager: apt
-    <<: *ubuntu_deps
+    <<: *debian_deps
   - name: ubuntu-19.04
     os_version: ubuntu:19.04
-    package_manager: apt
-    <<: *ubuntu_deps
-  - name: debian-8
-    os_version: debian:8
     package_manager: apt
     <<: *debian_deps
   - name: debian-9

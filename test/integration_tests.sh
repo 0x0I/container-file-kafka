@@ -14,7 +14,6 @@ fedora-30
 fedora-31
 ubuntu-18.04
 ubuntu-19.04
-debian-8
 debian-9
 OS
 
@@ -28,7 +27,6 @@ fedora-30
 fedora-31
 ubuntu-18.04
 ubuntu-19.04
-debian-8
 debian-9
 OS
 unset GOSS_FILES_PATH
