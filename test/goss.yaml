@@ -20,3 +20,17 @@ file:
     owner: root
     group: root
     filetype: file
+    contains:
+      - "broker.id ="
+      - "zookeeper.connect ="
+      - "advertised.host.name ="
+      - "advertised.listeners ="
+      - "log.dirs ="
+process:
+  java:
+    running: true
+    skip: false
+port:
+  tcp:9092:
+    listening: true
+    skip: false

@@ -9,6 +9,7 @@ push_images: false
 rhel_dependencies: &rhel_deps
   system_dependencies:
     - java-1.8.0-openjdk
+    - curl
 debian_dependencies: &debian_deps
   system_dependencies:
     - openjdk-8-jre
