@@ -1,7 +1,7 @@
 <p><img src="https://avatars1.githubusercontent.com/u/12563465?s=200&v=4" alt="OCI logo" title="oci" align="left" height="70" /></p>
 <p><img src="https://pbs.twimg.com/profile_images/781633389577195521/kazUJooF_400x400.jpg" alt="kafka logo" title="kafka" align="right" height="80" /></p>
 
-Container File :signal_strength::snake::calling: Kafka
+Container File :signal_strength::sunrise: Kafka
 =========
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/container-file-kafka?color=yellow)
 [![Build Status](https://travis-ci.org/0x0I/container-file-kafka.svg?branch=master)](https://travis-ci.org/0x0I/container-file-kafka)
