@@ -1,5 +1,5 @@
 ---
-- name: Playbook for building 0x01 Container file kafka Containerfiles
+- name: Playbook for building 0x01 Container file Kafka Containerfiles
   hosts: localhost
   tasks:
     - name: Load build arguments
