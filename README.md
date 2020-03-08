@@ -83,8 +83,8 @@ See [here](https://github.com/apache/zookeeper/blob/master/conf/zoo_sample.cfg) 
 
 Running a `kafka` broker is accomplished utilizing official **Kafka** binaries, obtained from Apache Kafka's official downloads [site](https://kafka.apache.org/downloads). The execution profile of a *Kafka* broker is primarily managed via its `server.properties` configuration though, due to its dependency on the *Zookeeper* key-value store service, _the following variable(s) can be customized to manage the launch of a local ZK instance to meet this dependency, provided a more dedicated and robust solution is not available._
 
-`$SETUP_ZK: <true|undefined/false>` (**default**: *undefined/false*)
-- whether to launch a local *Zookeeper* instance
+`$SETUP_ZK: <defined/true | undefined/empty-string>` (**default**: *undefined*)
+- whether to launch a local *Zookeeper* instance. **note:** any setting of this variable registers as `true` to setup a local *Zookeeper* instance.
 
 Dependencies
 ------------
@@ -95,9 +95,7 @@ Example Run
 ----------------
 default example:
 ```
-podman run \
-  --env NAME=value \
-  0labs/0x01.<service>:<tag> \
+podman run 0labs/0x01.kafka:2.4.0-centos-7
 ```
 
 License
