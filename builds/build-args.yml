@@ -1,5 +1,6 @@
 default_os_version: centos-7
 default_archive_url: http://apache.mirrors.hoobly.com/kafka/2.4.0/kafka_2.12-2.4.0.tgz
+default_kafka_version: 2.4.0
 default_package_manager: dnf
 
 build_images: false

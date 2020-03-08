@@ -18,5 +18,5 @@ before_script:
   - ansible-playbook builds/build-playbook.yml -v
 
 script:
-    - docker build --file builds/artifacts/${OS_VERSION}/Containerfile --tag testing-kafka:${OS_VERSION} .
-    - GOSS_FILES_PATH=test dgoss run --env-file test/config-test.env testing-kafka:${OS_VERSION}
+  - docker build --file builds/artifacts/${OS_VERSION}/Containerfile --tag testing-kafka:${OS_VERSION} .
+  - GOSS_FILES_PATH=test dgoss run --env-file test/config-test.env testing-kafka:${OS_VERSION}
