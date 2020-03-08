@@ -29,5 +29,17 @@
       when: build_images
       command:
         chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
-        cmd: "docker build --file {{ playbook_dir }}/artifacts/{{ item.name }}/Containerfile --tag staged-kafka:{{ item.name }} ."
+        cmd: "docker build --file {{ playbook_dir }}/artifacts/{{ item.name }}/Containerfile --tag staged-kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }} ."
+      with_items: "{{ build_matrix }}"
+    - name: Re-tag images for public release/push
+      when: push_images
+      command:
+        chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
+        cmd: "docker tag staged-kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }} 0labs/0x01.kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }}"
+      with_items: "{{ build_matrix }}"
+    - name: Push each OS based image to the public Dockerhub repository
+      when: push_images
+      command:
+        chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
+        cmd: "docker push 0labs/0x01.kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }}"
       with_items: "{{ build_matrix }}"
