@@ -41,9 +41,9 @@ Variables are available and organized according to the following software & mach
 
 #### Config
 
-**Kafka** supports specification of various options controlling aspects of a broker's behavior and operational profile. Each configuration can be expressed within a simple configuration file, `server.properties` by default, composed of **key=vaue** pairs representing configuration properties available. For a reference to the list of available configuration options, see [here](https://kafka.apache.org/documentation/#configuration).
+**Kafka** supports specification of various options controlling aspects of a broker's behavior and operational profile. Each configuration can be expressed within a simple configuration file, `server.properties` by default, composed of **key=vaue** pairs representing configuration properties available.
 
-_The following details the facilities provided by this role to manage the content of the aforementioned configuration file:_
+_The following details the facilities provided by this image to manage the content of the aforementioned configuration file:_
 
 Each of these configurations can be expressed using environment variables prefixed with `CONFIG_` organized according to the following:
 * **broker operations** - various settings related to broker operational behavior within a cluster (e.g. advertisement of broker listening parameters/details, topic and partition/replica management, logging storage and retention policies, resource usage and limitation profiles)
