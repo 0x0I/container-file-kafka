@@ -72,7 +72,7 @@ Furthermore, configuration is not constrained by hardcoded author defined defaul
   A list of configurable *Kafka* settings can be found [here](https://kafka.apache.org/documentation/#brokerconfigs).
   
 `$BROKER_ID_COMMAND = <string>` (**default**: *None*)
-- shell command to execute to determine unique broker id of provisioned Kafka broker. Used in place of `CONFIG_broker.id` or application default if set.
+- shell command to execute to determine unique broker id of provisioned Kafka broker. Used in place of application default if `CONFIG_broker.id` is not set.
  
 ##### Zookeeper Config
 
