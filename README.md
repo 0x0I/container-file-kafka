@@ -71,6 +71,9 @@ Furthermore, configuration is not constrained by hardcoded author defined defaul
   
   A list of configurable *Kafka* settings can be found [here](https://kafka.apache.org/documentation/#brokerconfigs).
   
+`$BROKER_ID_COMMAND = <string>` (**default**: *None*)
+- shell command to execute to determine unique broker id of provisioned Kafka broker. Used in place of `CONFIG_broker.id` or application default if set.
+ 
 ##### Zookeeper Config
 
 Use of this Containerfile and resultant image also enables management of a local instance of *Zookeeper* via embedded binaries included within each *Kafka* installation. Similar to *Kafka*, each configuration is rendered within a properties file, `zookeeper.properties` by default, and can be expressed as environment variables prefixed with `ZKCONFIG_`.
