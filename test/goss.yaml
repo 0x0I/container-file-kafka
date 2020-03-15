@@ -26,6 +26,23 @@ file:
       - "advertised.host.name ="
       - "advertised.listeners ="
       - "log.dirs ="
+file:
+  /opt/kafka/config/log4j.properties:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains:
+      - "log4j.rootLogger ="
+      - "log4j.appender.kafkaAppender ="
+      - "log4j.appender.kafkaAppender.DatePattern ="
+      - "log4j.appender.kafkaAppender.File ="
+      - "log4j.appender.kafkaAppender.layout ="
+      - "log4j.logger.kafka ="
+      - "log4j.logger.org.apache.kafka ="
+      - "log4j.logger.org.apache.zookeeper ="
+      - "log4j.logger.kafka.request.logger ="
 process:
   java:
     running: true
