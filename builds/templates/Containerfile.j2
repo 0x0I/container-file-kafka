@@ -14,7 +14,7 @@ RUN mkdir -p $KAFKA_HOME && curl -L {{ archive_url }} | tar xzf - --strip-compon
 ENV PATH $PATH:${KAFKA_HOME}/bin
 
 RUN mkdir /entrypoint.d
-COPY entrypoints/10-setup-local-zookeeper.sh entrypoints/20-setup-config.sh /entrypoint.d/
+COPY entrypoints/10-setup-local-zookeeper.sh entrypoints/20-setup-config.sh entrypoints/30-log4j-config.sh /entrypoint.d/
 
 COPY scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
