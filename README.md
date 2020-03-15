@@ -73,6 +73,36 @@ Furthermore, configuration is not constrained by hardcoded author defined defaul
   
 `$BROKER_ID_COMMAND = <string>` (**default**: *None*)
 - shell command to execute to determine unique broker id of provisioned Kafka broker. Used in place of application default if `CONFIG_broker.id` is not set.
+
+##### Log4j Config
+
+Kafka's logging facility is managed via [Log4j](https://logging.apache.org/log4j/2.x/),a logging service/framework built under the Apache project, and individual logging configuration defined in a log4j.properties file located underneath Kafka's main `$KAFKA_HOME/config/` directory. As with other configuration mechanisms supported by this image, each configuration can be expressed as environment variables prefixed with `LOG4J_`.
+
+`$LOG4J_<config-property> = <property-value (string)>` **default**: *none*
+
+See [here](https://github.com/apache/kafka/blob/trunk/config/log4j.properties) for an example configuration file and list of supported settings.
+
+##### JVM Options
+
+Kafka uses the following environment variables to manage various aspects of its JVM environment:
+
+`$KAFKA_HEAP_OPTS = <mem-heap-mgmt-settings (string)>` **default**: *None*
+
+* Adjust general memory management options used during Kafka broker operation (e.g. `-Xmx256M -Xms256M`).
+
+`$KAFKA_JVM_PERFORMANCE_OPTS = <jvm-performance-settings (string)>` **default**: *None*
+
+* Modify Kafka JVM performance settings (e.g. `-server -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxInlineLevel=15 -Djava.awt.headless=true.`)
+
+`$KAFKA_GC_LOG_OPTS = <defined/true | undefined>` **default**: *None*
+
+* Enable JVM garbage collection logging.
+
+`$KAFKA_JMX_OPTS = <jmx-settings (string)>` **default**: *None*
+
+* Manage Java Management Extensions(JMX) settings (e.g. `"-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false`)
+
+See [here](https://github.com/apache/kafka/blob/trunk/bin/kafka-run-class.sh#L184) for more details.
  
 ##### Zookeeper Config
 
