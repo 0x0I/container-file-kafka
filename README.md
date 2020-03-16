@@ -76,7 +76,7 @@ Furthermore, configuration is not constrained by hardcoded author defined defaul
 
 ##### Log4j Config
 
-Kafka's logging facility is managed via [Log4j](https://logging.apache.org/log4j/2.x/),a logging service/framework built under the Apache project, and individual logging configuration defined in a log4j.properties file located underneath Kafka's main `$KAFKA_HOME/config/` directory. As with other configuration mechanisms supported by this image, each configuration can be expressed as environment variables prefixed with `LOG4J_`.
+Kafka's logging facility is managed via [Log4j](https://logging.apache.org/log4j/2.x/),a logging service/framework built under the Apache project; with its configuration defined in a `log4j.properties` file located underneath Kafka's main `$KAFKA_HOME/config/` directory by default. As with other configuration mechanisms supported by this image, each configuration can be expressed as environment variables prefixed with `LOG4J_`.
 
 `$LOG4J_<config-property> = <property-value (string)>` **default**: *none*
 
@@ -165,6 +165,26 @@ podman run --env CONFIG_log.dirs=/mnt/data/kafka \
            --env CONFIG_zookeeper.connect=zk1.cluster.net:2181 \
            --volume kafka_data:/mnt/data/kafka
            0labs/0x01.kafka:2.4.0_ubuntu:19.04
+```
+
+adjust logging and JVM settings for broker auditing:
+```
+podman run --env CONFIG_log.dirs=/mnt/data/kafka \
+           --env CONFIG_log.flush.interval.ms=1000 \
+           --env LOG4J_log4j.rootLogger=TRACE,stdout,kafkaAppender \
+           --env LOG4J_log4j.appender.stdout=org.apache.log4j.ConsoleAppender \
+           --env LOG4J_log4j.appender.stdout.layout=org.apache.log4j.PatternLayout \
+           --env LOG4J_log4j.appender.kafkaAppender=org.apache.log4j.DailyRollingFileAppender \
+           --env LOG4J_log4j.appender.kafkaAppender.File=${kafka.logs.dir}/server.log \
+           --env LOG4J_log4j.appender.kafkaAppender.layout=org.apache.log4j.PatternLayout \
+           --env LOG4J_log4j.logger.org.apache.zookeeper=TRACE \
+           --env LOG4J_log4j.logger.kafka=TRACE \
+           --env LOG4J_log4j.logger.org.apache.kafka=TRACE \
+           --env KAFKA_HEAP_OPTS="-Xmx6g -Xms6g -XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80" \
+           --env KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false" \
+           --env KAFKA_JVM_PERFORMANCE_OPTS="-server -XX:InitiatingHeapOccupancyPercent=90 -XX:+ExplicitGCInvokesConcurrent -Djava.awt.headless=true" \
+           --volume kafka_data:/mnt/data/kafka \
+           0labs/0x01.kafka:2.4.0_ubuntu-19.04
 ```
 
 License
