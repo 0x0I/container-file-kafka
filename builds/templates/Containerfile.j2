@@ -8,20 +8,15 @@ RUN {{ package_manager }} update -y && \
 {% endif %}
 
 ENV KAFKA_HOME=/opt/kafka
-
-RUN mkdir -p $KAFKA_HOME && curl -L {{ archive_url }} | tar xzf - --strip-components=1 -C $KAFKA_HOME
-
-ENV PATH $PATH:${KAFKA_HOME}/bin
+WORKDIR $KAFKA_HOME
+RUN curl -L {{ archive_url }} | tar xzf - --strip-components=1 -C $KAFKA_HOME
 
 RUN mkdir /entrypoint.d
 COPY entrypoints/10-setup-local-zookeeper.sh entrypoints/20-setup-config.sh entrypoints/30-log4j-config.sh /entrypoint.d/
 
 COPY scripts/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 COPY scripts/start-kafka.sh /usr/bin/start-kafka.sh
-RUN chmod +x /usr/bin/start-kafka.sh
+RUN chmod +x /entrypoint.sh /usr/bin/start-kafka.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-
 CMD ["start-kafka.sh"]
