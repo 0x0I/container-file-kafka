@@ -153,6 +153,7 @@ podman run --env SETUP_ZK=true \
            --env ZKCONFIG_clientPort=2182 \
            --env ZKCONFIG_maxClientCnxns=10 \
            --env ZKCONFIG_admin.serverPort=8085 \
+           --env ZKCONFIG_dataDir=/data/zk \
            --env CONFIG_zookeeper.connect=127.0.0.1:2182 \
            0labs/0x01.kafka:2.4.0_fedora-31
 ```
@@ -163,7 +164,7 @@ podman run --env CONFIG_log.dirs=/mnt/data/kafka \
            --env CONFIG_log.flush.interval.ms=3000 \
            --env CONFIG_log.retention.hours=168 \
            --env CONFIG_zookeeper.connect=zk1.cluster.net:2181 \
-           --volume kafka_data:/mnt/data/kafka
+           --volume kafka_data:/mnt/data/kafka \
            0labs/0x01.kafka:2.4.0_ubuntu:19.04
 ```
 
