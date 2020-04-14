@@ -4,6 +4,7 @@
   tasks:
     - name: Load build arguments
       include_vars: "{{ playbook_dir }}/build-args.yml"
+      
     - name: Ensure existence of build directories
       file:
         path: "{{ playbook_dir }}/artifacts/{{ item.name }}"
@@ -11,6 +12,7 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
       with_items: "{{ build_matrix }}"
+      
     - name: Render Containerfiles (to be built) based on build-args
       template:
         src: "{{ playbook_dir }}/templates/Containerfile.j2"
@@ -24,6 +26,7 @@
         system_dependencies: "{{ item.system_dependencies | default([]) }}"
         package_manager: "{{ item.package_manager | default(default_package_manager) }}"
       with_items: "{{ build_matrix }}"
+      
     - name: Build each OS based image from parent DIR of playbook
       become: true
       when: build_images
@@ -31,12 +34,14 @@
         chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
         cmd: "docker build --file {{ playbook_dir }}/artifacts/{{ item.name }}/Containerfile --tag staged-kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }} ."
       with_items: "{{ build_matrix }}"
+      
     - name: Re-tag images for public release/push
       when: push_images
       command:
         chdir: "{{ playbook_dir.split('/')[0:-1]|join('/') }}"
         cmd: "docker tag staged-kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }} 0labs/0x01.kafka:{{ item.kafka_version | default(default_kafka_version) }}_{{ item.name }}"
       with_items: "{{ build_matrix }}"
+      
     - name: Push each OS based image to the public Dockerhub repository
       when: push_images
       command:
