@@ -68,9 +68,9 @@ Furthermore, configuration is not constrained by hardcoded author defined defaul
   # Value: 10 (value of type INT)
   CONFIG_broker.id=10
   ```
-  
+
   A list of configurable *Kafka* settings can be found [here](https://kafka.apache.org/documentation/#brokerconfigs).
-  
+
 `$BROKER_ID_COMMAND = <string>` (**default**: *None*)
 - shell command to execute to determine unique broker id of provisioned Kafka broker. Used in place of application default if `CONFIG_broker.id` is not set.
 
@@ -103,7 +103,7 @@ Kafka uses the following environment variables to manage various aspects of its 
 * Manage Java Management Extensions(JMX) settings (e.g. `"-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false`)
 
 See [here](https://github.com/apache/kafka/blob/trunk/bin/kafka-run-class.sh#L184) for more details.
- 
+
 ##### Zookeeper Config
 
 Use of this Containerfile and resultant image also enables management of a local instance of *Zookeeper* via embedded binaries included within each *Kafka* installation. Similar to *Kafka*, each configuration is rendered within a properties file, `zookeeper.properties` by default, and can be expressed as environment variables prefixed with `ZKCONFIG_`.
@@ -111,7 +111,7 @@ Use of this Containerfile and resultant image also enables management of a local
 `$ZKCONFIG_<config-property> = <property-value (string)>` **default**: *None*
 
 See [here](https://github.com/apache/zookeeper/blob/master/conf/zoo_sample.cfg) for an example configuration file and list of supported settings.
-  
+
 #### Launch
 
 Running a `kafka` broker is accomplished utilizing official **Kafka** binaries, obtained from Apache Kafka's official downloads [site](https://kafka.apache.org/downloads). The execution profile of a *Kafka* broker is primarily managed via its `server.properties` configuration though, due to its dependency on the *Zookeeper* key-value store service, _the following variable(s) can be customized to manage the launch of a local ZK instance to meet this dependency, provided a more dedicated and robust solution is not available._
@@ -165,7 +165,7 @@ podman run --env CONFIG_log.dirs=/mnt/data/kafka \
            --env CONFIG_log.retention.hours=168 \
            --env CONFIG_zookeeper.connect=zk1.cluster.net:2181 \
            --volume kafka_data:/mnt/data/kafka \
-           0labs/0x01.kafka:2.4.0_ubuntu:19.04
+           0labs/0x01.kafka:2.4.0_ubuntu:19.10
 ```
 
 adjust logging and JVM settings for broker auditing:
@@ -185,7 +185,7 @@ podman run --env CONFIG_log.dirs=/mnt/data/kafka \
            --env KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false" \
            --env KAFKA_JVM_PERFORMANCE_OPTS="-server -XX:InitiatingHeapOccupancyPercent=90 -XX:+ExplicitGCInvokesConcurrent -Djava.awt.headless=true" \
            --volume kafka_data:/mnt/data/kafka \
-           0labs/0x01.kafka:2.4.0_ubuntu-19.04
+           0labs/0x01.kafka:2.4.0_ubuntu-19.10
 ```
 
 License

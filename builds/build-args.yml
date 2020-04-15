@@ -38,8 +38,8 @@ build_matrix:
     os_version: ubuntu:18.04
     package_manager: apt
     <<: *debian_deps
-  - name: ubuntu-19.04
-    os_version: ubuntu:19.04
+  - name: ubuntu-19.10
+    os_version: ubuntu:19.10
     package_manager: apt
     <<: *debian_deps
   - name: debian-9
