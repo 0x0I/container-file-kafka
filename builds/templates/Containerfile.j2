@@ -11,7 +11,6 @@ ENV KAFKA_HOME=/opt/kafka
 WORKDIR $KAFKA_HOME
 RUN curl -L {{ archive_url }} | tar xzf - --strip-components=1 -C $KAFKA_HOME
 
-RUN mkdir /entrypoint.d
 COPY entrypoints/10-setup-local-zookeeper.sh entrypoints/20-setup-config.sh entrypoints/30-log4j-config.sh /entrypoint.d/
 
 COPY scripts/entrypoint.sh /entrypoint.sh
